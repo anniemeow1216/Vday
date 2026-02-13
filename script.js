@@ -43,16 +43,16 @@ noBtn.addEventListener('click', function() {
         noBtn.textContent = noMessages[noMessages.length - 1];
     }
     
-    // Increase Yes button size
-    const yesScale = 1 + clickCount * 1.2;
+    // Increase Yes button size (with reasonable max limit)
+    const yesScale = Math.min(1 + clickCount * 1.2, 8);
     yesBtn.style.transform = `scale(${yesScale})`;
     
-    // Push No button to the right
-    const noTranslate = clickCount * 50;
+    // Push No button to the right (with reasonable max limit)
+    const noTranslate = Math.min(clickCount * 50, 300);
     noBtn.style.transform = `translateX(${noTranslate}px)`;
     
-    // Move image and question text upward
-    const upwardMove = -clickCount * 25;
+    // Move image and question text upward (with reasonable max limit)
+    const upwardMove = Math.max(-clickCount * 25, -150);
     mainImage.style.transform = `translateY(${upwardMove}px)`;
     question.style.transform = `translateY(${upwardMove}px)`;
     
