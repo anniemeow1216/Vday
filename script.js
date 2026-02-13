@@ -47,9 +47,10 @@ noBtn.addEventListener('click', function() {
     const yesScale = Math.min(1 + clickCount * 1.2, 8);
     yesBtn.style.transform = `scale(${yesScale})`;
     
-    // Push No button to the right (with reasonable max limit)
-    const noTranslate = Math.min(clickCount * 50, 300);
-    noBtn.style.transform = `translateX(${noTranslate}px)`;
+    // Move No button to random position
+    const randomX = Math.floor(Math.random() * 400) - 200; // Random X between -200 and 200
+    const randomY = Math.floor(Math.random() * 300) - 150; // Random Y between -150 and 150
+    noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
     
     // Move image and question text upward (with reasonable max limit)
     const upwardMove = Math.max(-clickCount * 25, -150);
