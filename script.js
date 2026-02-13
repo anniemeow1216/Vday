@@ -1,0 +1,70 @@
+// Get DOM elements
+const yesBtn = document.getElementById('yes-btn');
+const noBtn = document.getElementById('no-btn');
+const mainImage = document.getElementById('main-image');
+const question = document.getElementById('question');
+const yesScreen = document.getElementById('yes-screen');
+
+// Track click count
+let clickCount = 0;
+
+// No button text messages
+const noMessages = [
+    "No",
+    "Are you sure?",
+    "Think again!",
+    "Really?",
+    "You might hurt my feelings...",
+    "I'm gonna cry :("
+];
+
+// Image mapping based on click count
+function getImageForClickCount(count) {
+    if (count === 1) {
+        return '100.webp';
+    } else if (count === 2 || count === 3) {
+        return '200.webp';
+    } else if (count === 4) {
+        return 'giphy.webp';
+    } else if (count >= 5) {
+        return '100.webp';
+    }
+    return 'giphy.webp';
+}
+
+// No button click handler
+noBtn.addEventListener('click', function() {
+    clickCount++;
+    
+    // Update No button text
+    if (clickCount < noMessages.length) {
+        noBtn.textContent = noMessages[clickCount];
+    } else {
+        noBtn.textContent = noMessages[noMessages.length - 1];
+    }
+    
+    // Increase Yes button size
+    const yesScale = 1 + clickCount * 1.2;
+    yesBtn.style.transform = `scale(${yesScale})`;
+    
+    // Push No button to the right
+    const noTranslate = clickCount * 50;
+    noBtn.style.transform = `translateX(${noTranslate}px)`;
+    
+    // Move image and question text upward
+    const upwardMove = -clickCount * 25;
+    mainImage.style.transform = `translateY(${upwardMove}px)`;
+    question.style.transform = `translateY(${upwardMove}px)`;
+    
+    // Change image based on click count
+    mainImage.src = getImageForClickCount(clickCount);
+});
+
+// Yes button click handler
+yesBtn.addEventListener('click', function() {
+    // Show celebration screen
+    yesScreen.classList.remove('hidden');
+    
+    // Disable page scrolling
+    document.body.classList.add('no-scroll');
+});
